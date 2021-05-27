@@ -28,7 +28,6 @@ public class ScoreListFragment extends Fragment {
     private RecyclerView mScoreRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
-    private Score currentScore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,6 @@ public class ScoreListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.new_score:
                 Score score = new Score();
-                currentScore = score;
                 ScoreList.get(getActivity()).addScore(score);
                 Intent intent = ScoreActivity.newIntent(getActivity(), score.getId());
                 startActivity(intent);
@@ -135,21 +133,21 @@ public class ScoreListFragment extends Fragment {
     }
 
     private int findTotalOuts(List<Score> scoreList){
-        int toReturn = 0;
+        int amountOfOuts = 0;
         for(int i = 0; i < scoreList.size(); i++){
             if(scoreList.get(i).isOut()){
-                toReturn++;
+                amountOfOuts++;
             }
         }
-        return toReturn;
+        return amountOfOuts;
     }
 
     private int findTotalRuns(List<Score> scoreList){
-        int toReturn = 0;
+        int totalRuns = 0;
         for(int i = 0; i < scoreList.size(); i++){
-            toReturn += scoreList.get(i).getRuns();
+            totalRuns += scoreList.get(i).getRuns();
         }
-        return toReturn;
+        return totalRuns;
     }
 
     private void updateSubtitle() {

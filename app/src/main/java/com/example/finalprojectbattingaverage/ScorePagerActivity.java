@@ -1,7 +1,5 @@
 package com.example.finalprojectbattingaverage;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +21,6 @@ public class ScorePagerActivity extends
     private ViewPager mViewPager;
     private List<Score> mScores;
 
-    public static Intent newIntent(Context packageContext, UUID scoreId) {
-        Intent intent = new Intent(packageContext,
-                ScorePagerActivity.class);
-        intent.putExtra(EXTRA_SCORE_ID, scoreId);
-        return intent;
-    }
-
     UUID scoreId = (UUID) getIntent()
             .getSerializableExtra(EXTRA_SCORE_ID);
 
@@ -37,8 +28,7 @@ public class ScorePagerActivity extends
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_pager);
-        mViewPager = (ViewPager)
-                findViewById(R.id.crime_view_pager);
+        mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);
         mScores = ScoreList.get(this).getScores();
         FragmentManager fragmentManager =
                 getSupportFragmentManager();
