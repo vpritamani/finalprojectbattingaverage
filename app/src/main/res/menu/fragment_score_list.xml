@@ -7,6 +7,10 @@
         android:title="@string/new_score"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/show_average"
+        android:title="Show Average"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/show_subtitle"

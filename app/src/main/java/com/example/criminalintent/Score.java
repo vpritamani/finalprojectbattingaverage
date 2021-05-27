@@ -5,24 +5,24 @@ import java.util.UUID;
 public class Score {
     //figured out how to clone, commit and push
     private UUID mId;
-    private int mTitle;
+    private int mRuns;
     private boolean mOut;
 
 
     public Score() {
         mId = UUID.randomUUID();
-        mTitle = 0;
+        mRuns = 0;
     }
 
 
     public UUID getId() {
         return mId;
     }
-    public int getTitle() {
-        return mTitle;
+    public int getRuns() {
+        return mRuns;
     }
-    public void setTitle(int title) {
-        mTitle = title;
+    public void setRuns(int runs) {
+        mRuns = runs;
     }
 
     public boolean isOut() {

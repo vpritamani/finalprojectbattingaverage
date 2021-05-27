@@ -53,7 +53,7 @@ public class ScoreFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_score, container,
                 false);
                 mScoreField = (EditText) v.findViewById(R.id.score_value);
-        mScoreField.setText(valueOf(mScore.getTitle()));
+        mScoreField.setText(valueOf(mScore.getRuns()));
         mScoreField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
@@ -65,7 +65,7 @@ public class ScoreFragment extends Fragment {
             public void onTextChanged(
                     CharSequence s, int start, int
                     before, int count) {
-                mScore.setTitle(Integer.valueOf(s.toString()));
+                mScore.setRuns(Integer.valueOf(s.toString()));
             }
             @Override
             public void afterTextChanged(Editable s)

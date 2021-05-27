@@ -102,9 +102,34 @@ public class ScoreListFragment extends Fragment {
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
                 return true;
+            case R.id.show_average:
+                ScoreList scoreList = ScoreList.get(getActivity());
+                int amountOfOuts = findTotalOuts(scoreList.getScores());
+                int totalScore = findTotalRuns(scoreList.getScores());
+                int average = totalScore/amountOfOuts;
+                // create toast to display average
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private int findTotalOuts(List<Score> scoreList){
+        int toReturn = 0;
+        for(int i = 0; i < scoreList.size(); i++){
+            if(scoreList.get(i).isOut()){
+                toReturn++;
+            }
+        }
+        return toReturn;
+    }
+
+    private int findTotalRuns(List<Score> scoreList){
+        int toReturn = 0;
+        for(int i = 0; i < scoreList.size(); i++){
+            toReturn += scoreList.get(i).getRuns();
+        }
+        return toReturn;
     }
 
     private void updateSubtitle() {
@@ -138,7 +163,7 @@ public class ScoreListFragment extends Fragment {
 
         public void bind(Score score){
             mScore = score;
-            mScoreTextView.setText(valueOf(mScore.getTitle()));
+            mScoreTextView.setText(valueOf(mScore.getRuns()));
             mSolvedImageView.setVisibility(score.isOut() ? View.VISIBLE : View.GONE);
         }
 
