@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -13,6 +14,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
         android:text="@string/score_value"
-        tools:ignore="MissingConstraints"></TextView>
+        app:layout_constraintBottom_toTopOf="@+id/opposition_value"></TextView>
+
+    <TextView
+        android:id="@+id/opposition_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:text="Opposition Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

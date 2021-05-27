@@ -132,6 +132,7 @@ public class ScoreListFragment extends Fragment {
 
     private class ScoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mScoreTextView;
+        private TextView mOppositionTextView;
 
         private Score mScore;
 
@@ -139,6 +140,7 @@ public class ScoreListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_score, parent, false));
             itemView.setOnClickListener(this);
             mScoreTextView = (TextView) itemView.findViewById(R.id.score_value);
+            mOppositionTextView = (TextView) itemView.findViewById(R.id.opposition_value);
         }
 
         public void bind(Score score){
@@ -151,6 +153,7 @@ public class ScoreListFragment extends Fragment {
                 outOrNot = " not out";
             }
             mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot);
+            mOppositionTextView.setText("Opposition: " + mScore.getOpposition());
         }
 
         @Override
