@@ -121,20 +121,11 @@ public class ScoreFragment extends Fragment {
                 int totalScore = findTotalRuns(scoreList.getScores());
                 String averageToShow;
                 if(amountOfOuts == 0){
-                    averageToShow = "NA - Add a Score in Which You Were Out!";
+                    averageToShow = "NA - No Scores Are Out!";
                 }
                 else {
                     double average = (double) totalScore / (double) amountOfOuts;
                     averageToShow = new DecimalFormat("#.##").format(average);
-                    if(average < 20.0){
-                        averageToShow += " - I'm guessing you're a bowler because you can't bat!";
-                    }
-                    else if(average < 40.0){
-                        averageToShow += " - I'm guessing you're an allrounder because you aren't good or bad";
-                    }
-                    else{
-                        averageToShow += " - I'm guessing you're a batsman because you're pretty good at batting!";
-                    }
                 }
                 Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
