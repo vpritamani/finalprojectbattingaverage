@@ -114,14 +114,14 @@ public class ScoreListFragment extends Fragment {
                 toast.show();
                 return true;
             case R.id.show_oppositions:
-                ScoreList scoreList1 = ScoreList.get(getActivity());
+                ScoreList scoreListCurrent = ScoreList.get(getActivity());
                 String toDisplay = "NA";
                 int undefinedOppositionCount = 0;
                 List<String> addedNames = new ArrayList<>();
 
-                if(scoreList1.getScores().size() > 0){
-                    for(int i = 0; i < scoreList1.getScores().size(); i++){
-                        String toAdd = scoreList1.getScores().get(i).getOpposition();
+                if(scoreListCurrent.getScores().size() > 0){
+                    for(int i = 0; i < scoreListCurrent.getScores().size(); i++){
+                        String toAdd = scoreListCurrent.getScores().get(i).getOpposition();
                         if(toAdd == ""){
                             undefinedOppositionCount++;
                             toAdd = "Undefined opposition " + undefinedOppositionCount;
@@ -130,18 +130,53 @@ public class ScoreListFragment extends Fragment {
                             toDisplay = toAdd;
                             addedNames.add(toAdd);
                         }
-                        else{
-                            if(!addedNames.contains(toAdd)){
-                                addedNames.add(toAdd);
-                                toDisplay += ", " + toAdd;
-                            }
+                        else if(!addedNames.contains(toAdd)){
+                            addedNames.add(toAdd);
+                            toDisplay += ", " + toAdd;
                         }
                     }
                 }
-
                 Toast toastForOpposition = Toast.makeText(getContext(), toDisplay, Toast.LENGTH_LONG);
                 toastForOpposition.setGravity(Gravity.BOTTOM, 0,0);
                 toastForOpposition.show();
+                return true;
+            case R.id.show_average_by_opposition:
+                ScoreList scoreListForListingAverage = ScoreList.get(getActivity());
+                String toShow = "";
+                if(scoreListForListingAverage.getScores().size() > 0){
+                    List<String> oppositionsAlreadyListed = new ArrayList<>();
+                    List<String> averageList = new ArrayList<>();
+                    for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
+                        String current = scoreListForListingAverage.getScores().get(j).getOpposition();
+                        if(current == ""){
+                            current = "Undefined Oppositions";
+                        }
+                        if(oppositionsAlreadyListed.contains(current)){
+                            break;
+                        }
+                        else{
+                            oppositionsAlreadyListed.add(current);
+                            ScoreList scoreOfThisOpposition = new ScoreList(getContext());
+                            for(int k = 0; k < scoreListForListingAverage.getScores().size(); k++){
+                                if(scoreListForListingAverage.getScores().get(k).getOpposition() == current){
+                                    scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
+                                }
+                            }
+                            if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
+                                toShow += current + ": No Outs Against This Opposition, ";
+                            }
+                            else {
+                                toShow += current + ": "+ scoreOfThisOpposition.findAverage(scoreOfThisOpposition) + ", ";
+                            }
+                        }
+                    }
+                    toShow = toShow.substring(0, toShow.length() - 2);
+                }
+
+                Toast test = Toast.makeText(getContext(), toShow, Toast.LENGTH_LONG);
+                test.setGravity(Gravity.BOTTOM, 0,0);
+                test.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
