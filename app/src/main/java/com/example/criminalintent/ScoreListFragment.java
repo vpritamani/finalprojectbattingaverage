@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static java.lang.String.valueOf;
@@ -114,7 +115,7 @@ public class ScoreListFragment extends Fragment {
                 }
                 else {
                     double average = (double) totalScore / (double) amountOfOuts;
-                    averageToShow = valueOf(average);
+                    averageToShow = new DecimalFormat("#.##").format(average);
                     if(average < 20.0){
                         averageToShow += " - I'm guessing you're a bowler because you can't bat!";
                     }
