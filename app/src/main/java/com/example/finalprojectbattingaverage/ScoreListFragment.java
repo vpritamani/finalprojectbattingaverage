@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.valueOf;
@@ -112,6 +113,35 @@ public class ScoreListFragment extends Fragment {
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
                 return true;
+            case R.id.show_oppositions:
+                ScoreList scoreList1 = ScoreList.get(getActivity());
+                String toDisplay = "NA";
+                int undefinedOppositionCount = 0;
+                List<String> addedNames = new ArrayList<>();
+
+                if(scoreList1.getScores().size() > 0){
+                    for(int i = 0; i < scoreList1.getScores().size(); i++){
+                        String toAdd = scoreList1.getScores().get(i).getOpposition();
+                        if(toAdd == ""){
+                            undefinedOppositionCount++;
+                            toAdd = "Undefined opposition " + undefinedOppositionCount;
+                        }
+                        if(i == 0){
+                            toDisplay = toAdd;
+                            addedNames.add(toAdd);
+                        }
+                        else{
+                            if(!addedNames.contains(toAdd)){
+                                addedNames.add(toAdd);
+                                toDisplay += ", " + toAdd;
+                            }
+                        }
+                    }
+                }
+
+                Toast toastForOpposition = Toast.makeText(getContext(), toDisplay, Toast.LENGTH_LONG);
+                toastForOpposition.setGravity(Gravity.BOTTOM, 0,0);
+                toastForOpposition.show();
             default:
                 return super.onOptionsItemSelected(item);
         }
