@@ -11,16 +11,16 @@ public class ScoreActivity extends SingleFragmentActivity {
 
     private static final String EXTRA_SCORE_ID = "com.bignerdranch.android.criminalintent.crime_id";
 
-    public static Intent newIntent (Context packageContext, UUID crimeId){
+    public static Intent newIntent (Context packageContext, UUID scoreId){
         Intent intent = new Intent(packageContext, ScoreActivity.class);
-        intent.putExtra(EXTRA_SCORE_ID, crimeId);
+        intent.putExtra(EXTRA_SCORE_ID, scoreId);
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_SCORE_ID);
-        return ScoreFragment.newInstance(crimeId);
+        UUID scoreId = (UUID) getIntent().getSerializableExtra(EXTRA_SCORE_ID);
+        return ScoreFragment.newInstance(scoreId);
     }
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import static java.lang.String.valueOf;
+import android.view.Gravity;
 
 public class ScoreListFragment extends Fragment {
 
@@ -106,8 +108,26 @@ public class ScoreListFragment extends Fragment {
                 ScoreList scoreList = ScoreList.get(getActivity());
                 int amountOfOuts = findTotalOuts(scoreList.getScores());
                 int totalScore = findTotalRuns(scoreList.getScores());
-                int average = totalScore/amountOfOuts;
-                // create toast to display average
+                String averageToShow;
+                if(amountOfOuts == 0){
+                    averageToShow = "NA - Add a Score in Which You Were Out!";
+                }
+                else {
+                    double average = (double) totalScore / (double) amountOfOuts;
+                    averageToShow = valueOf(average);
+                    if(average < 20.0){
+                        averageToShow += " - I'm guessing you're a bowler because you can't bat!";
+                    }
+                    else if(average < 40.0){
+                        averageToShow += " - I'm guessing you're an allrounder because you aren't good or bad";
+                    }
+                    else{
+                        averageToShow += " - I'm guessing you're a batsman because you're pretty good at batting!";
+                    }
+                }
+                Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

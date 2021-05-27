@@ -30,9 +30,9 @@ public class ScoreFragment extends Fragment {
     private Score mScore;
     private CheckBox mSolvedCheckBox;
 
-    public static ScoreFragment newInstance(UUID crimeId){
+    public static ScoreFragment newInstance(UUID scoreId){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_SCORE_ID, crimeId);
+        args.putSerializable(ARG_SCORE_ID, scoreId);
 
         ScoreFragment fragment = new ScoreFragment();
         fragment.setArguments(args);
@@ -42,14 +42,13 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_SCORE_ID);
-        mScore = ScoreList.get(getActivity()).getScore(crimeId);
+        UUID scoreId = (UUID) getArguments().getSerializable(ARG_SCORE_ID);
+        mScore = ScoreList.get(getActivity()).getScore(scoreId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //mCrime = new Crime();
         View v = inflater.inflate(R.layout.fragment_score, container,
                 false);
                 mScoreField = (EditText) v.findViewById(R.id.score_value);
