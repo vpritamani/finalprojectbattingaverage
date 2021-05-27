@@ -115,7 +115,7 @@ public class ScoreFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.show_average:
+            case R.id.show_average_in_editing_a_score:
                 ScoreList scoreList = ScoreList.get(getActivity());
                 int amountOfOuts = findTotalOuts(scoreList.getScores());
                 int totalScore = findTotalRuns(scoreList.getScores());

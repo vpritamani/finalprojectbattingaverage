@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/show_average"
+        android:id="@+id/show_average_in_editing_a_score"
         android:title="@string/show_average"
-        />
+        app:showAsAction="ifRoom|withText"/>
 </menu>
