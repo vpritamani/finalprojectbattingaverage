@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.criminalintent">
+    package="com.example.finalprojectbattingaverage">
 
     <application
         android:allowBackup="true"
@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CriminalIntent">
-        <activity android:name=".ScoreListActivity">
+        <activity android:name="com.example.finalprojectbattingaverage.ScoreListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScoreActivity"
-            android:parentActivityName=".ScoreListActivity">
+        <activity android:name="com.example.finalprojectbattingaverage.ScoreActivity"
+            android:parentActivityName="com.example.finalprojectbattingaverage.ScoreListActivity">
         </activity>
 
     </application>

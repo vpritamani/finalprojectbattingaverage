@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.finalprojectbattingaverage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -156,8 +155,7 @@ public class ScoreListFragment extends Fragment {
     private void updateSubtitle() {
         ScoreList scoreList = ScoreList.get(getActivity());
         int scoreCount = scoreList.getScores().size();
-        String subtitle =
-                getString(R.string.subtitle_format, scoreCount);
+        String subtitle = getString(R.string.subtitle_format, scoreCount);
 
         if (!mSubtitleVisible) {
             subtitle = null;

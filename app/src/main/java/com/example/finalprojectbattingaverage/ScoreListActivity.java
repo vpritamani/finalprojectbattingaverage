@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.finalprojectbattingaverage;
 
 import androidx.fragment.app.Fragment;
 
