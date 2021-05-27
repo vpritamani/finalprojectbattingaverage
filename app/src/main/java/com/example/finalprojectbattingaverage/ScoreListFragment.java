@@ -116,15 +116,13 @@ public class ScoreListFragment extends Fragment {
             case R.id.show_oppositions:
                 ScoreList scoreListCurrent = ScoreList.get(getActivity());
                 String toDisplay = "NA";
-                int undefinedOppositionCount = 0;
                 List<String> addedNames = new ArrayList<>();
 
                 if(scoreListCurrent.getScores().size() > 0){
                     for(int i = 0; i < scoreListCurrent.getScores().size(); i++){
                         String toAdd = scoreListCurrent.getScores().get(i).getOpposition();
                         if(toAdd == ""){
-                            undefinedOppositionCount++;
-                            toAdd = "Undefined opposition " + undefinedOppositionCount;
+                            toAdd = "Undefined opposition";
                         }
                         if(i == 0){
                             toDisplay = toAdd;
@@ -149,7 +147,7 @@ public class ScoreListFragment extends Fragment {
                     for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
                         String current = scoreListForListingAverage.getScores().get(j).getOpposition();
                         if(current == ""){
-                            current = "Undefined Oppositions";
+                            current = "Undefined Opposition";
                         }
                         if(oppositionsAlreadyListed.contains(current)){
                             break;
