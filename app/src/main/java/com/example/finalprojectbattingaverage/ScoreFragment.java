@@ -35,6 +35,7 @@ public class ScoreFragment extends Fragment {
     private static final String ARG_SCORE_ID = "score_id";
 
     private EditText mScoreField;
+    private EditText mOppositionField;
     private Score mScore;
     private CheckBox mSolvedCheckBox;
 
@@ -71,6 +72,25 @@ public class ScoreFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mScore.setRuns(Integer.valueOf(s.toString()));
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        mOppositionField = (EditText) v.findViewById(R.id.opposition_name);
+        mOppositionField.setText(mScore.getOpposition());
+        mOppositionField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mScore.setOpposition(s.toString());
             }
             @Override
             public void afterTextChanged(Editable s)

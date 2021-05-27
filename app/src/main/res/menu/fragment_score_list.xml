@@ -17,5 +17,14 @@
         android:title="@string/show_subtitle"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/show_oppositions"
+        android:title="Show Oppositions"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/show_average_by_opposition"
+        android:title="Show Average By Opposition"
+        app:showAsAction="ifRoom"/>
 
 </menu>

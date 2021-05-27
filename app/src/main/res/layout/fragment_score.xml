@@ -16,6 +16,11 @@
         android:inputType="number"
         android:autofillHints="0"
         android:hint="@string/score_title_hint"/>
+    <EditText
+        android:id="@+id/opposition_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the opposition"/>
     <CheckBox
         android:id="@+id/out_or_not_value"
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@ public class ScoreList {
         return sScoreList;
     }
 
-    private ScoreList(Context context) {
+    public ScoreList(Context context) {
         mScores = new LinkedHashMap<>();
     }
 

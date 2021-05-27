@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.valueOf;
@@ -112,6 +113,65 @@ public class ScoreListFragment extends Fragment {
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
                 return true;
+            case R.id.show_oppositions:
+                ScoreList scoreListCurrent = ScoreList.get(getActivity());
+                String toDisplay = "NA";
+                List<String> addedNames = new ArrayList<>();
+
+                if(scoreListCurrent.getScores().size() > 0){
+                    for(int i = 0; i < scoreListCurrent.getScores().size(); i++){
+                        String toAdd = scoreListCurrent.getScores().get(i).getOpposition();
+                        if(toAdd == ""){
+                            toAdd = "Undefined opposition";
+                        }
+                        if(i == 0){
+                            toDisplay = toAdd;
+                            addedNames.add(toAdd);
+                        }
+                        else if(!addedNames.contains(toAdd)){
+                            addedNames.add(toAdd);
+                            toDisplay += ", " + toAdd;
+                        }
+                    }
+                }
+                Toast toastForOpposition = Toast.makeText(getContext(), toDisplay, Toast.LENGTH_LONG);
+                toastForOpposition.setGravity(Gravity.BOTTOM, 0,0);
+                toastForOpposition.show();
+                return true;
+            case R.id.show_average_by_opposition:
+                ScoreList scoreListForListingAverage = ScoreList.get(getActivity());
+                String toShow = "NA - Add A Score!";
+                if(scoreListForListingAverage.getScores().size() > 0){
+                    List<String> oppositionsAlreadyListed = new ArrayList<>();
+                    toShow = "";
+                    for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
+                        String current = scoreListForListingAverage.getScores().get(j).getOpposition();
+                        if(current == ""){
+                            current = "Undefined Opposition";
+                        }
+                        if(!oppositionsAlreadyListed.contains(current)){
+                            oppositionsAlreadyListed.add(current);
+                            ScoreList scoreOfThisOpposition = new ScoreList(getContext());
+                            for(int k = 0; k < scoreListForListingAverage.getScores().size(); k++){
+                                if(scoreListForListingAverage.getScores().get(k).getOpposition() == current){
+                                    scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
+                                }
+                            }
+                            if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
+                                toShow += current + ": No Outs Against This Opposition, ";
+                            }
+                            else {
+                                toShow += current + ": "+ scoreOfThisOpposition.findAverage(scoreOfThisOpposition) + ", ";
+                            }
+                        }
+                    }
+                    toShow = toShow.substring(0, toShow.length() - 2);
+                }
+
+                Toast test = Toast.makeText(getContext(), toShow, Toast.LENGTH_LONG);
+                test.setGravity(Gravity.BOTTOM, 0,0);
+                test.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -132,6 +192,7 @@ public class ScoreListFragment extends Fragment {
 
     private class ScoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mScoreTextView;
+        private TextView mOppositionTextView;
 
         private Score mScore;
 
@@ -139,6 +200,7 @@ public class ScoreListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_score, parent, false));
             itemView.setOnClickListener(this);
             mScoreTextView = (TextView) itemView.findViewById(R.id.score_value);
+            mOppositionTextView = (TextView) itemView.findViewById(R.id.opposition_value);
         }
 
         public void bind(Score score){
@@ -151,6 +213,7 @@ public class ScoreListFragment extends Fragment {
                 outOrNot = " not out";
             }
             mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot);
+            mOppositionTextView.setText("Opposition: " + mScore.getOpposition());
         }
 
         @Override
