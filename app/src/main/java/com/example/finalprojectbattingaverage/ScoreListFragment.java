@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.String.valueOf;
@@ -124,13 +125,18 @@ public class ScoreListFragment extends Fragment {
                         if(toAdd == ""){
                             toAdd = "Undefined opposition";
                         }
-                        if(i == 0){
-                            toDisplay = toAdd;
+                        if(!addedNames.contains(toAdd)){
                             addedNames.add(toAdd);
                         }
-                        else if(!addedNames.contains(toAdd)){
-                            addedNames.add(toAdd);
-                            toDisplay += ", " + toAdd;
+
+                    }
+                    Collections.sort(addedNames);
+                    for(int i = 0; i < addedNames.size(); i++){
+                        if(i == 0){
+                            toDisplay = addedNames.get(i);
+                        }
+                        else{
+                            toDisplay += ", " + addedNames.get(i);
                         }
                     }
                 }
