@@ -140,19 +140,16 @@ public class ScoreListFragment extends Fragment {
                 return true;
             case R.id.show_average_by_opposition:
                 ScoreList scoreListForListingAverage = ScoreList.get(getActivity());
-                String toShow = "";
+                String toShow = "NA - Add A Score!";
                 if(scoreListForListingAverage.getScores().size() > 0){
                     List<String> oppositionsAlreadyListed = new ArrayList<>();
-                    List<String> averageList = new ArrayList<>();
+                    toShow = "";
                     for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
                         String current = scoreListForListingAverage.getScores().get(j).getOpposition();
                         if(current == ""){
                             current = "Undefined Opposition";
                         }
-                        if(oppositionsAlreadyListed.contains(current)){
-                            break;
-                        }
-                        else{
+                        if(!oppositionsAlreadyListed.contains(current)){
                             oppositionsAlreadyListed.add(current);
                             ScoreList scoreOfThisOpposition = new ScoreList(getContext());
                             for(int k = 0; k < scoreListForListingAverage.getScores().size(); k++){
