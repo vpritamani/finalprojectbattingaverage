@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CricketBattingAverageCalculator</string>
+    <string name="score_title_hint">Enter your score.</string>
+    <string name="score_title_label">Score</string>
+    <string name="out_or_not_label">Out?</string>
+    <string name="new_score">New Score</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$d crimes</string>
+</resources>
