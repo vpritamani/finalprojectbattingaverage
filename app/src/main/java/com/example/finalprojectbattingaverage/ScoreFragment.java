@@ -1,20 +1,30 @@
 package com.example.finalprojectbattingaverage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
+import java.util.List;
 import java.util.UUID;
 
 import static android.widget.CompoundButton.*;
@@ -37,11 +47,13 @@ public class ScoreFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID scoreId = (UUID) getArguments().getSerializable(ARG_SCORE_ID);
         mScore = ScoreList.get(getActivity()).getScore(scoreId);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -91,5 +103,63 @@ public class ScoreFragment extends Fragment {
                     .commit();
         }
         return v;
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu,
+                                    MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_score,
+                menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.show_average:
+                ScoreList scoreList = ScoreList.get(getActivity());
+                int amountOfOuts = findTotalOuts(scoreList.getScores());
+                int totalScore = findTotalRuns(scoreList.getScores());
+                String averageToShow;
+                if(amountOfOuts == 0){
+                    averageToShow = "NA - Add a Score in Which You Were Out!";
+                }
+                else {
+                    double average = (double) totalScore / (double) amountOfOuts;
+                    averageToShow = new DecimalFormat("#.##").format(average);
+                    if(average < 20.0){
+                        averageToShow += " - I'm guessing you're a bowler because you can't bat!";
+                    }
+                    else if(average < 40.0){
+                        averageToShow += " - I'm guessing you're an allrounder because you aren't good or bad";
+                    }
+                    else{
+                        averageToShow += " - I'm guessing you're a batsman because you're pretty good at batting!";
+                    }
+                }
+                Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private int findTotalOuts(List<Score> scoreList){
+        int amountOfOuts = 0;
+        for(int i = 0; i < scoreList.size(); i++){
+            if(scoreList.get(i).isOut()){
+                amountOfOuts++;
+            }
+        }
+        return amountOfOuts;
+    }
+
+    private int findTotalRuns(List<Score> scoreList){
+        int totalRuns = 0;
+        for(int i = 0; i < scoreList.size(); i++){
+            totalRuns += scoreList.get(i).getRuns();
+        }
+        return totalRuns;
     }
 }
