@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Score {
 
-    private UUID mId;
+    private final UUID mId;
     private int mRuns;
     private boolean mOut;
 

@@ -8,4 +8,5 @@
     <string name="hide_subtitle">Hide Amount</string>
     <string name="subtitle_format">%1$d scores</string>
     <string name="show_average">Show Average</string>
+    <string name="score_value">Score Value</string>
 </resources>

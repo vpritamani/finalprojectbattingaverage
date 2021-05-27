@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class ScoreActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_SCORE_ID = "com.bignerdranch.android.criminalintent.crime_id";
+    private static final String EXTRA_SCORE_ID = "com.android.finalprojectbattingaverage.score_id";
 
     public static Intent newIntent (Context packageContext, UUID scoreId){
         Intent intent = new Intent(packageContext, ScoreActivity.class);

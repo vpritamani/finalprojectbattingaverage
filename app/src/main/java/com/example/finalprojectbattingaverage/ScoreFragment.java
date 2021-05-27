@@ -24,7 +24,7 @@ import static java.lang.String.valueOf;
 
 public class ScoreFragment extends Fragment {
 
-    private static final String ARG_SCORE_ID = "crime_id";
+    private static final String ARG_SCORE_ID = "score_id";
 
     private EditText mScoreField;
     private Score mScore;

@@ -17,7 +17,7 @@ public class ScorePagerActivity extends
         AppCompatActivity {
 
     private static final String EXTRA_SCORE_ID =
-            "com.bignerdranch.android.criminalintent.crime_id";
+            "com.example.android.finalprojectbattingaverage.score_id";
 
 
     private ViewPager mViewPager;
