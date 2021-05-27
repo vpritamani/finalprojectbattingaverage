@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/show_average"
-        android:title="Show Average"
+        android:title="@string/show_average"
         app:showAsAction="ifRoom"/>
 
     <item

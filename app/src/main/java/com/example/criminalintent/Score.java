@@ -3,7 +3,7 @@ package com.example.criminalintent;
 import java.util.UUID;
 
 public class Score {
-    //figured out how to clone, commit and push
+
     private UUID mId;
     private int mRuns;
     private boolean mOut;

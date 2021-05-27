@@ -16,22 +16,22 @@ import java.util.UUID;
 public class ScorePagerActivity extends
         AppCompatActivity {
 
-    private static final String EXTRA_CRIME_ID =
+    private static final String EXTRA_SCORE_ID =
             "com.bignerdranch.android.criminalintent.crime_id";
 
 
     private ViewPager mViewPager;
     private List<Score> mScores;
 
-    public static Intent newIntent(Context packageContext, UUID crimeId) {
+    public static Intent newIntent(Context packageContext, UUID scoreId) {
         Intent intent = new Intent(packageContext,
                 ScorePagerActivity.class);
-        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        intent.putExtra(EXTRA_SCORE_ID, scoreId);
         return intent;
     }
 
     UUID scoreId = (UUID) getIntent()
-            .getSerializableExtra(EXTRA_CRIME_ID);
+            .getSerializableExtra(EXTRA_SCORE_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
