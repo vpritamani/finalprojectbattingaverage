@@ -170,7 +170,6 @@ public class ScoreListFragment extends Fragment {
 
     private class ScoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mScoreTextView;
-        private ImageView mSolvedImageView;
 
         private Score mScore;
 
@@ -179,13 +178,18 @@ public class ScoreListFragment extends Fragment {
             itemView.setOnClickListener(this);
 
             mScoreTextView = (TextView) itemView.findViewById(R.id.score_value);
-            mSolvedImageView = (ImageView) itemView.findViewById(R.id.imageView);
         }
 
         public void bind(Score score){
             mScore = score;
-            mScoreTextView.setText(valueOf(mScore.getRuns()));
-            mSolvedImageView.setVisibility(score.isOut() ? View.VISIBLE : View.GONE);
+            String outOrNot;
+            if(score.isOut()){
+                outOrNot = " out";
+            }
+            else{
+                outOrNot = " not out";
+            }
+            mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot);
         }
 
         @Override
