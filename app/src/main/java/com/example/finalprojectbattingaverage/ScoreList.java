@@ -43,4 +43,26 @@ public class ScoreList {
         }
     }
 
+    public int findTotalOuts(ScoreList scoreList){
+        int amountOfOuts = 0;
+        for(int i = 0; i < scoreList.getScores().size(); i++){
+            if(scoreList.getScores().get(i).isOut()){
+                amountOfOuts++;
+            }
+        }
+        return amountOfOuts;
+    }
+
+    public int findTotalRuns(ScoreList scoreList){
+        int totalRuns = 0;
+        for(int i = 0; i < scoreList.getScores().size(); i++){
+            totalRuns += scoreList.getScores().get(i).getRuns();
+        }
+        return totalRuns;
+    }
+
+    public double findAverage(ScoreList scoreList){
+        return (double) findTotalRuns(scoreList) / (double) findTotalOuts(scoreList);
+    }
+
 }

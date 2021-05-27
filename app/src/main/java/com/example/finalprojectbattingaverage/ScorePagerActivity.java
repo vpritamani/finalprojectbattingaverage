@@ -30,20 +30,18 @@ public class ScorePagerActivity extends
         setContentView(R.layout.activity_score_pager);
         mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);
         mScores = ScoreList.get(this).getScores();
-        FragmentManager fragmentManager =
-                getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-                                          @Override
-                                          public Fragment getItem(int position) {
-                                              Score score = mScores.get(position);
-                                              return
-                                                      ScoreFragment.newInstance(score.getId());
-                                          }
-                                          @Override
-                                          public int getCount() {
+            @Override
+            public Fragment getItem(int position) {
+                Score score = mScores.get(position);
+                return ScoreFragment.newInstance(score.getId());
+            }
+            @Override
+            public int getCount() {
                                               return mScores.size();
                                           }
-                                      });
+        });
         for (int i = 0; i < mScores.size(); i++) {
             if
             (mScores.get(i).getId().equals(scoreId)) {

@@ -35,23 +35,14 @@ public class ScoreListFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    
-
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            mSubtitleVisible =
-                    savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
-        View view =
-                inflater.inflate(R.layout.fragment_score_list,
-                        container, false);
-        mScoreRecyclerView = (RecyclerView) view
-                .findViewById(R.id.score_recycler_view);
-        mScoreRecyclerView.setLayoutManager(new
-                LinearLayoutManager(getActivity()));
+        View view = inflater.inflate(R.layout.fragment_score_list, container, false);
+        mScoreRecyclerView = (RecyclerView) view.findViewById(R.id.score_recycler_view);
+        mScoreRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
 
@@ -67,19 +58,15 @@ public class ScoreListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SAVED_SUBTITLE_VISIBLE,
-                mSubtitleVisible);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
     
     @Override
-    public void onCreateOptionsMenu(Menu menu,
-                                    MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_score_list,
-                menu);
+        inflater.inflate(R.menu.fragment_score_list, menu);
 
-        MenuItem subtitleItem =
-                menu.findItem(R.id.show_subtitle);
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
         if (mSubtitleVisible) {
             subtitleItem.setTitle(R.string.hide_subtitle);
         } else {
@@ -104,14 +91,12 @@ public class ScoreListFragment extends Fragment {
                 return true;
             case R.id.show_average:
                 ScoreList scoreList = ScoreList.get(getActivity());
-                int amountOfOuts = findTotalOuts(scoreList.getScores());
-                int totalScore = findTotalRuns(scoreList.getScores());
                 String averageToShow;
-                if(amountOfOuts == 0){
+                if(scoreList.findTotalOuts(scoreList) == 0){
                     averageToShow = "NA - Add a Score in Which You Were Out!";
                 }
                 else {
-                    double average = (double) totalScore / (double) amountOfOuts;
+                    double average = scoreList.findAverage(scoreList);
                     averageToShow = new DecimalFormat("#.##").format(average);
                     if(average < 20.0){
                         averageToShow += " - I'm guessing you're a bowler because you can't bat!";
@@ -132,24 +117,6 @@ public class ScoreListFragment extends Fragment {
         }
     }
 
-    private int findTotalOuts(List<Score> scoreList){
-        int amountOfOuts = 0;
-        for(int i = 0; i < scoreList.size(); i++){
-            if(scoreList.get(i).isOut()){
-                amountOfOuts++;
-            }
-        }
-        return amountOfOuts;
-    }
-
-    private int findTotalRuns(List<Score> scoreList){
-        int totalRuns = 0;
-        for(int i = 0; i < scoreList.size(); i++){
-            totalRuns += scoreList.get(i).getRuns();
-        }
-        return totalRuns;
-    }
-
     private void updateSubtitle() {
         ScoreList scoreList = ScoreList.get(getActivity());
         int scoreCount = scoreList.getScores().size();
@@ -159,8 +126,7 @@ public class ScoreListFragment extends Fragment {
             subtitle = null;
         }
 
-        AppCompatActivity activity = (AppCompatActivity)
-                getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
@@ -172,7 +138,6 @@ public class ScoreListFragment extends Fragment {
         public ScoreHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_score, parent, false));
             itemView.setOnClickListener(this);
-
             mScoreTextView = (TextView) itemView.findViewById(R.id.score_value);
         }
 
@@ -219,8 +184,7 @@ public class ScoreListFragment extends Fragment {
     }
 
     private void updateUI() {
-        ScoreList scoreList =
-                ScoreList.get(getActivity());
+        ScoreList scoreList = ScoreList.get(getActivity());
         List<Score> crimes = scoreList.getScores();
         if(mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);

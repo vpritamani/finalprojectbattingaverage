@@ -59,21 +59,17 @@ public class ScoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_score, container,
-                false);
-                mScoreField = (EditText) v.findViewById(R.id.score_value);
+        View v = inflater.inflate(R.layout.fragment_score, container, false);
+        mScoreField = (EditText) v.findViewById(R.id.score_value);
         mScoreField.setText(valueOf(mScore.getRuns()));
         mScoreField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
-                    CharSequence s, int start, int count,
-                    int after) {
+                    CharSequence s, int start, int count, int after) {
 
             }
             @Override
-            public void onTextChanged(
-                    CharSequence s, int start, int
-                    before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mScore.setRuns(Integer.valueOf(s.toString()));
             }
             @Override
@@ -87,29 +83,22 @@ public class ScoreFragment extends Fragment {
         mSolvedCheckBox.setChecked(mScore.isOut());
         mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mScore.setOut(isChecked);
             }
         });
         FragmentManager fm = getFragmentManager();
-        Fragment fragment =
-                fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
             fragment = new ScoreFragment();
-            fm.beginTransaction()
-                    .add(R.id.fragment_container,
-                            fragment)
-                    .commit();
+            fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
         return v;
     }
     @Override
-    public void onCreateOptionsMenu(Menu menu,
-                                    MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_score,
-                menu);
+        inflater.inflate(R.menu.fragment_score, menu);
     }
 
     @Override
@@ -117,15 +106,12 @@ public class ScoreFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.show_average_in_editing_a_score:
                 ScoreList scoreList = ScoreList.get(getActivity());
-                int amountOfOuts = findTotalOuts(scoreList.getScores());
-                int totalScore = findTotalRuns(scoreList.getScores());
                 String averageToShow;
-                if(amountOfOuts == 0){
+                if(scoreList.findTotalOuts(scoreList) == 0){
                     averageToShow = "NA - No Scores Are Out!";
                 }
                 else {
-                    double average = (double) totalScore / (double) amountOfOuts;
-                    averageToShow = new DecimalFormat("#.##").format(average);
+                    averageToShow = new DecimalFormat("#.##").format(scoreList.findAverage(scoreList));
                 }
                 Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
@@ -134,23 +120,5 @@ public class ScoreFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private int findTotalOuts(List<Score> scoreList){
-        int amountOfOuts = 0;
-        for(int i = 0; i < scoreList.size(); i++){
-            if(scoreList.get(i).isOut()){
-                amountOfOuts++;
-            }
-        }
-        return amountOfOuts;
-    }
-
-    private int findTotalRuns(List<Score> scoreList){
-        int totalRuns = 0;
-        for(int i = 0; i < scoreList.size(); i++){
-            totalRuns += scoreList.get(i).getRuns();
-        }
-        return totalRuns;
     }
 }
