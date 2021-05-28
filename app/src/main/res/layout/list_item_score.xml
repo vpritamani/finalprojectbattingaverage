@@ -14,14 +14,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
         android:text="@string/score_value"
-        app:layout_constraintBottom_toTopOf="@+id/opposition_value"></TextView>
+        app:layout_constraintBottom_toTopOf="@+id/opposition_value"
+        tools:ignore="MissingConstraints"></TextView>
 
     <TextView
         android:id="@+id/opposition_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:text="Opposition Name"
+        android:text="@string/opposition_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"></TextView>
 

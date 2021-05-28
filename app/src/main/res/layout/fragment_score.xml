@@ -20,7 +20,7 @@
         android:id="@+id/opposition_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter the opposition"/>
+        android:hint="@string/enter_the_opposition_name"/>
     <CheckBox
         android:id="@+id/out_or_not_value"
         android:layout_width="match_parent"

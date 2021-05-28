@@ -147,14 +147,11 @@ public class ScoreListFragment extends Fragment {
             case R.id.show_average_by_opposition:
                 ScoreList scoreListForListingAverage = ScoreList.get(getActivity());
                 String toShow = "NA - Add A Score!";
+                List<String> oppositionsAlreadyListed = new ArrayList<>();
                 if(scoreListForListingAverage.getScores().size() > 0){
-                    List<String> oppositionsAlreadyListed = new ArrayList<>();
                     toShow = "";
                     for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
                         String current = scoreListForListingAverage.getScores().get(j).getOpposition();
-                        if(current == ""){
-                            current = "Undefined Opposition";
-                        }
                         if(!oppositionsAlreadyListed.contains(current)){
                             oppositionsAlreadyListed.add(current);
                             ScoreList scoreOfThisOpposition = new ScoreList(getContext());
@@ -163,11 +160,14 @@ public class ScoreListFragment extends Fragment {
                                     scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
                                 }
                             }
+                            if(current == ""){
+                                current = "Undefined Opposition";
+                            }
                             if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
                                 toShow += current + ": No Outs Against This Opposition, ";
                             }
                             else {
-                                toShow += current + ": "+ scoreOfThisOpposition.findAverage(scoreOfThisOpposition) + ", ";
+                                toShow += current + ": " + new DecimalFormat("#.##").format(scoreOfThisOpposition.findAverage(scoreOfThisOpposition)) + ", ";
                             }
                         }
                     }
