@@ -36,8 +36,10 @@ public class ScoreFragment extends Fragment {
     private EditText mScoreField;
     private EditText mOppositionField;
     private Button mAddScoreButton;
+    private Button mDeleteScoreButton;
     private Score mScore;
     private CheckBox mSolvedCheckBox;
+    private UUID mUUID;
 
     public static ScoreFragment newInstance(UUID scoreId){
         Bundle args = new Bundle();
@@ -53,6 +55,7 @@ public class ScoreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID scoreId = (UUID) getArguments().getSerializable(ARG_SCORE_ID);
+        mUUID = scoreId;
         mScore = ScoreList.get(getActivity()).getScore(scoreId);
         setHasOptionsMenu(true);
     }
@@ -123,6 +126,16 @@ public class ScoreFragment extends Fragment {
             public void onClick(View v){
                 Intent myIntent = new Intent(getContext(), ScoreListActivity.class);
                 startActivityForResult(myIntent, 0);
+            }
+        });
+        mDeleteScoreButton = (Button) v.findViewById(R.id.DeleteScoreButton);
+        mDeleteScoreButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ScoreList scoreListFromWhichToDelete = ScoreList.get(getActivity());
+                scoreListFromWhichToDelete.deleteItem(mUUID);
+                Intent returnIntent = new Intent(getContext(), ScoreListActivity.class);
+                startActivityForResult(returnIntent, 0);
             }
         });
         return v;

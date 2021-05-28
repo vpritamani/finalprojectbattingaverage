@@ -34,4 +34,11 @@
         android:layout_gravity="center"
         android:text="Add Score"></Button>
 
+    <Button
+        android:id="@+id/DeleteScoreButton"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Delete Score"></Button>
+
 </LinearLayout>

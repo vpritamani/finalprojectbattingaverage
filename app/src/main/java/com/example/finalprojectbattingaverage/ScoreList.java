@@ -37,6 +37,10 @@ public class ScoreList {
         mScores.clear();
     }
 
+    public void deleteItem(UUID idToDelete){
+        mScores.remove(idToDelete);
+    }
+
     public Score getScore(UUID id) {
         if (mScores.containsKey(id)){
             return mScores.get(id);
