@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class ScoreFragment extends Fragment {
 
     private EditText mScoreField;
     private EditText mOppositionField;
+    private Button mDoneButton;
     private Score mScore;
     private CheckBox mSolvedCheckBox;
 
@@ -117,6 +119,14 @@ public class ScoreFragment extends Fragment {
             fragment = new ScoreFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
+        mDoneButton = (Button) v.findViewById(R.id.buttonToReturn);
+        mDoneButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent myIntent = new Intent(getContext(), ScoreListActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
         return v;
     }
     @Override
