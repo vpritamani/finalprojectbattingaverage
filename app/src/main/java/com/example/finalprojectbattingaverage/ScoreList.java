@@ -33,6 +33,9 @@ public class ScoreList {
         return new ArrayList<>(mScores.values());
     }
 
+    public void clearList(){
+        mScores.clear();
+    }
 
     public Score getScore(UUID id) {
         if (mScores.containsKey(id)){

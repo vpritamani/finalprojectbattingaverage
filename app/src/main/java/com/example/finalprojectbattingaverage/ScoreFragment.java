@@ -22,11 +22,8 @@ import androidx.fragment.app.Fragment;
 
 
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.UUID;
 
 import static android.widget.CompoundButton.*;
@@ -38,7 +35,7 @@ public class ScoreFragment extends Fragment {
 
     private EditText mScoreField;
     private EditText mOppositionField;
-    private Button mDoneButton;
+    private Button mAddScoreButton;
     private Score mScore;
     private CheckBox mSolvedCheckBox;
 
@@ -120,8 +117,8 @@ public class ScoreFragment extends Fragment {
             fragment = new ScoreFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
-        mDoneButton = (Button) v.findViewById(R.id.buttonToReturn);
-        mDoneButton.setOnClickListener(new View.OnClickListener(){
+        mAddScoreButton = (Button) v.findViewById(R.id.AddScoreButton);
+        mAddScoreButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent myIntent = new Intent(getContext(), ScoreListActivity.class);

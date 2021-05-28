@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -178,6 +179,14 @@ public class ScoreListFragment extends Fragment {
                 Toast test = Toast.makeText(getContext(), toShow, Toast.LENGTH_LONG);
                 test.setGravity(Gravity.BOTTOM, 0,0);
                 test.show();
+                return true;
+            case R.id.clear_list:
+                ScoreList.get(getActivity()).clearList();
+                Fragment fragmentOfScoreList = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                FragmentTransaction betweenFragmentTransaction = getFragmentManager().beginTransaction();
+                betweenFragmentTransaction.detach(fragmentOfScoreList);
+                betweenFragmentTransaction.attach(fragmentOfScoreList);
+                betweenFragmentTransaction.commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

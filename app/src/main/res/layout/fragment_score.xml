@@ -28,10 +28,10 @@
         android:text="@string/out_or_not_label"/>
 
     <Button
-        android:id="@+id/buttonToReturn"
+        android:id="@+id/AddScoreButton"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Done"></Button>
+        android:text="Add Score"></Button>
 
 </LinearLayout>

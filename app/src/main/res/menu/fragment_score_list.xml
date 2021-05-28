@@ -27,4 +27,9 @@
         android:title="Show Average By Opposition"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/clear_list"
+        android:title="Clear List"
+        app:showAsAction="ifRoom"/>
+
 </menu>
