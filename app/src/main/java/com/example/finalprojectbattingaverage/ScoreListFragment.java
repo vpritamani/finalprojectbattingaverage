@@ -156,7 +156,7 @@ public class ScoreListFragment extends Fragment {
                             oppositionsAlreadyListed.add(current);
                             ScoreList scoreOfThisOpposition = new ScoreList(getContext());
                             for(int k = 0; k < scoreListForListingAverage.getScores().size(); k++){
-                                if(scoreListForListingAverage.getScores().get(k).getOpposition() == current){
+                                if(scoreListForListingAverage.getScores().get(k).getOpposition().toLowerCase().equals(current.toLowerCase())){
                                     scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
                                 }
                             }
