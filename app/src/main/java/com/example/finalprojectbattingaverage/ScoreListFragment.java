@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,7 @@ public class ScoreListFragment extends Fragment {
 
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private RecyclerView mScoreRecyclerView;
-    private CrimeAdapter mAdapter;
+    private ScoreAdapter mAdapter;
     private boolean mSubtitleVisible;
 
     @Override
@@ -229,9 +230,9 @@ public class ScoreListFragment extends Fragment {
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<ScoreHolder> {
+    private class ScoreAdapter extends RecyclerView.Adapter<ScoreHolder> {
         private List<Score> mScores;
-        public CrimeAdapter(List<Score> scores) {
+        public ScoreAdapter(List<Score> scores) {
             mScores = scores;
         }
 
@@ -254,9 +255,9 @@ public class ScoreListFragment extends Fragment {
 
     private void updateUI() {
         ScoreList scoreList = ScoreList.get(getActivity());
-        List<Score> crimes = scoreList.getScores();
+        List<Score> scores = scoreList.getScores();
         if(mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
+            mAdapter = new ScoreAdapter(scores);
             mScoreRecyclerView.setAdapter(mAdapter);
         }
         else{ mAdapter.notifyDataSetChanged(); }
