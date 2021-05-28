@@ -7,8 +7,12 @@
     <string name="show_subtitle">Show Amount</string>
     <string name="hide_subtitle">Hide Amount</string>
     <string name="subtitle_format">%1$d scores</string>
-    <string name="show_average">Show Average</string>
+    <string name="show_average">Show Total Average</string>
     <string name="score_value">Score Value</string>
     <string name="enter_the_opposition_name">Enter the opposition</string>
     <string name="opposition_name">Opposition Name</string>
+    <string name="show_average_menu_of_list">Show Average</string>
+    <string name="show_oppositions">Show Oppositions</string>
+    <string name="show_average_by_opposition">Show Average By Opposition</string>
+    <string name="clear_list">Clear List</string>
 </resources>
