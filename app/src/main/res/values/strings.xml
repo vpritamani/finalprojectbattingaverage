@@ -3,7 +3,7 @@
     <string name="score_title_hint">Enter your score.</string>
     <string name="score_title_label">Score</string>
     <string name="out_or_not_label">Out?</string>
-    <string name="confirm_score">Confirm Score</string>
+    <string name="new_score">New Score</string>
     <string name="show_subtitle">Show Amount of Scores</string>
     <string name="hide_subtitle">Hide Amount of Scores</string>
     <string name="subtitle_format">%1$d scores</string>
@@ -15,4 +15,6 @@
     <string name="show_oppositions">Show Oppositions</string>
     <string name="show_average_by_opposition">Show Average By Opposition</string>
     <string name="clear_list">Clear List</string>
+    <string name="confirm_score">Confirm Score</string>
+    <string name="delete_score">Delete Score</string>
 </resources>

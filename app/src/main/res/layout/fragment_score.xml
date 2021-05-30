@@ -32,13 +32,13 @@
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Add Score"></Button>
+        android:text="@string/confirm_score"></Button>
 
     <Button
         android:id="@+id/DeleteScoreButton"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Delete Score"></Button>
+        android:text="@string/delete_score"></Button>
 
 </LinearLayout>
