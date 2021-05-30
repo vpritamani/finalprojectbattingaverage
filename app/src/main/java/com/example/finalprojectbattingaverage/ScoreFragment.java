@@ -124,6 +124,7 @@ public class ScoreFragment extends Fragment {
             fragment = new ScoreFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
+
         mAddScoreButton = (Button) v.findViewById(R.id.AddScoreButton);
         mAddScoreButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -132,6 +133,7 @@ public class ScoreFragment extends Fragment {
                 startActivityForResult(myIntent, 0);
             }
         });
+
         mDeleteScoreButton = (Button) v.findViewById(R.id.DeleteScoreButton);
         mDeleteScoreButton.setOnClickListener(new View.OnClickListener(){
             @Override

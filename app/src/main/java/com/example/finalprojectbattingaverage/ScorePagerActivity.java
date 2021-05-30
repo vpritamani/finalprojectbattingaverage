@@ -14,15 +14,13 @@ import java.util.UUID;
 public class ScorePagerActivity extends
         AppCompatActivity {
 
-    private static final String EXTRA_SCORE_ID =
-            "com.example.android.finalprojectbattingaverage.score_id";
+    private static final String EXTRA_SCORE_ID = "com.example.android.finalprojectbattingaverage.score_id";
 
 
     private ViewPager mViewPager;
     private List<Score> mScores;
 
-    UUID scoreId = (UUID) getIntent()
-            .getSerializableExtra(EXTRA_SCORE_ID);
+    UUID scoreId = (UUID) getIntent().getSerializableExtra(EXTRA_SCORE_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +37,11 @@ public class ScorePagerActivity extends
             }
             @Override
             public int getCount() {
-                                              return mScores.size();
-                                          }
+                return mScores.size();
+            }
         });
         for (int i = 0; i < mScores.size(); i++) {
-            if
-            (mScores.get(i).getId().equals(scoreId)) {
+            if (mScores.get(i).getId().equals(scoreId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }

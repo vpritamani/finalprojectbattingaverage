@@ -123,7 +123,7 @@ public class ScoreListFragment extends Fragment {
                 if(scoreListCurrent.getScores().size() > 0){
                     for(int i = 0; i < scoreListCurrent.getScores().size(); i++){
                         String toAdd = scoreListCurrent.getScores().get(i).getOpposition();
-                        if(toAdd == ""){
+                        if(toAdd.equals("")){
                             toAdd = "Undefined opposition";
                         }
                         if(!addedNames.contains(toAdd)){
@@ -161,7 +161,7 @@ public class ScoreListFragment extends Fragment {
                                     scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
                                 }
                             }
-                            if(current == ""){
+                            if(current.equals("")){
                                 current = "Undefined Opposition";
                             }
                             if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
