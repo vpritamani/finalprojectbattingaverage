@@ -33,18 +33,19 @@ public class ScoreFragment extends Fragment {
 
     private static final String ARG_SCORE_ID = "score_id";
 
+    // all the buttons/edit texts/check boxes in the fragment
     private EditText mScoreField;
     private EditText mOppositionField;
     private Button mAddScoreButton;
     private Button mDeleteScoreButton;
-    private Score mScore;
     private CheckBox mSolvedCheckBox;
+
+    private Score mScore;
     private UUID mUUID;
 
     public static ScoreFragment newInstance(UUID scoreId){
         Bundle args = new Bundle();
         args.putSerializable(ARG_SCORE_ID, scoreId);
-
         ScoreFragment fragment = new ScoreFragment();
         fragment.setArguments(args);
         return fragment;
@@ -55,6 +56,9 @@ public class ScoreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID scoreId = (UUID) getArguments().getSerializable(ARG_SCORE_ID);
+
+        // set the mUUID to the scoreId so that can be accessed to
+        // delete the item when one presses 'delete crime'
         mUUID = scoreId;
         mScore = ScoreList.get(getActivity()).getScore(scoreId);
         setHasOptionsMenu(true);
@@ -107,7 +111,7 @@ public class ScoreFragment extends Fragment {
         });
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.out_or_not_value);
-        mSolvedCheckBox.setChecked(mScore.isOut());
+        mSolvedCheckBox.setChecked(mScore.getIfOut());
         mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

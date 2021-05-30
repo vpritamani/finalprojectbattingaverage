@@ -53,7 +53,7 @@ public class ScoreList {
     public int findTotalOuts(ScoreList scoreList){
         int amountOfOuts = 0;
         for(int i = 0; i < scoreList.getScores().size(); i++){
-            if(scoreList.getScores().get(i).isOut()){
+            if(scoreList.getScores().get(i).getIfOut()){
                 amountOfOuts++;
             }
         }
