@@ -17,9 +17,10 @@ public class Score {
 
     /*
      Constructor - set an ID, and set default values that
-     would not impact average each time you add a score -
+     would not impact average or SR each time you add a score -
      adding 0 runs and 0 outs has no impact on the average
-     that would be computed
+     and adding 0 runs and 0 balls faced has no impact on the
+     strike rate that would be computed
     */
     public Score() {
         mId = UUID.randomUUID();

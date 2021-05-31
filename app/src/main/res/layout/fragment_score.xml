@@ -19,19 +19,19 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Balls Faced"/>
+        android:text="@string/balls_faced"/>
     <EditText
         android:id="@+id/balls_faced_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:autofillHints="0"
-        android:hint="Enter balls faced"/>
+        android:hint="@string/enter_balls_faced"/>
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opposition"/>
+        android:text="@string/opposition"/>
     <EditText
         android:id="@+id/opposition_name"
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
         android:text="@string/out_or_not_label"/>
 
     <Button
-        android:id="@+id/AddScoreButton"
+        android:id="@+id/ConfirmScoreButton"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

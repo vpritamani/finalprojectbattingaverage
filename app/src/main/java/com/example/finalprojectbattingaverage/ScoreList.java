@@ -11,9 +11,14 @@ import java.util.UUID;
 public class ScoreList {
 
     private static ScoreList sScoreList;
-
     private Map<UUID, Score> mScores;
 
+    // constructor
+    public ScoreList(Context context) {
+        mScores = new LinkedHashMap<>();
+    }
+
+    // get the entire list/create a list and return it
     public static ScoreList get(Context context) {
         if (sScoreList == null) {
             sScoreList = new ScoreList(context);
@@ -21,26 +26,15 @@ public class ScoreList {
         return sScoreList;
     }
 
-    public ScoreList(Context context) {
-        mScores = new LinkedHashMap<>();
-    }
-
+    // add score method
     public void addScore(Score c) {
         mScores.put(c.getId(), c);
     }
 
+    // get methods
     public List<Score> getScores() {
         return new ArrayList<>(mScores.values());
     }
-
-    public void clearList(){
-        mScores.clear();
-    }
-
-    public void deleteItem(UUID idToDelete){
-        mScores.remove(idToDelete);
-    }
-
     public Score getScore(UUID id) {
         if (mScores.containsKey(id)){
             return mScores.get(id);
@@ -50,6 +44,15 @@ public class ScoreList {
         }
     }
 
+    // clear list and delete item methods
+    public void clearList(){
+        mScores.clear();
+    }
+    public void deleteItem(UUID idToDelete){
+        mScores.remove(idToDelete);
+    }
+
+    // find methods that go through entire list and return the total outs/runs/balls
     public int findTotalOuts(ScoreList scoreList){
         int amountOfOuts = 0;
         for(int i = 0; i < scoreList.getScores().size(); i++){
@@ -59,7 +62,6 @@ public class ScoreList {
         }
         return amountOfOuts;
     }
-
     public int findTotalRuns(ScoreList scoreList){
         int totalRuns = 0;
         for(int i = 0; i < scoreList.getScores().size(); i++){
@@ -67,7 +69,6 @@ public class ScoreList {
         }
         return totalRuns;
     }
-
     public int findTotalBallsFaced(ScoreList scoreList){
         int totalballsFaced = 0;
         for(int i = 0; i < scoreList.getScores().size(); i++){
@@ -76,10 +77,10 @@ public class ScoreList {
         return totalballsFaced;
     }
 
+    // find average/strike rate methods simply use the above helper methods to return average/SR
     public double findAverage(ScoreList scoreList){
         return (double) findTotalRuns(scoreList) / (double) findTotalOuts(scoreList);
     }
-
     public double findStrikeRate(ScoreList scoreList){
         return 100.0 * (double) findTotalRuns(scoreList) / (double) findTotalBallsFaced(scoreList);
     }

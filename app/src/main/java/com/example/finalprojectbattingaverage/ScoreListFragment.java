@@ -48,7 +48,6 @@ public class ScoreListFragment extends Fragment {
         mScoreRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
-
     }
 
     @Override
@@ -95,6 +94,8 @@ public class ScoreListFragment extends Fragment {
             case R.id.show_average:
                 ScoreList scoreList = ScoreList.get(getActivity());
                 String averageToShow;
+
+                // average isn't computable if total outs is 0
                 if(scoreList.findTotalOuts(scoreList) == 0){
                     averageToShow = "NA - Add a Score in Which You Were Out!";
                 }
@@ -111,13 +112,18 @@ public class ScoreListFragment extends Fragment {
                         averageToShow += " - I'm guessing you're a batsman because you're pretty good at batting!";
                     }
                 }
+
+                // make and show toast with average and commentary/interpretation of the average
                 Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
+
                 return true;
             case R.id.show_strike_rate:
                 ScoreList scoreListStrikeRate = ScoreList.get(getActivity());
                 String strikeRateToShow;
+
+                // strike rate isn't computable is total balls is 0
                 if(scoreListStrikeRate.findTotalBallsFaced(scoreListStrikeRate) == 0){
                     strikeRateToShow = "NA - You haven't faced a ball yet!";
                 }
@@ -134,14 +140,19 @@ public class ScoreListFragment extends Fragment {
                         strikeRateToShow += " - It seems like you're playing t20!";
                     }
                 }
+
+                // make and show toast of strike rate and commentary/interpretation of the strike rate
                 Toast toastForStrikeRate = Toast.makeText(getContext(), strikeRateToShow, Toast.LENGTH_LONG);
                 toastForStrikeRate.setGravity(Gravity.BOTTOM, 0, 0);
                 toastForStrikeRate.show();
+
                 return true;
             case R.id.show_oppositions:
                 ScoreList scoreListCurrent = ScoreList.get(getActivity());
-                String toDisplay = "NA";
                 List<String> addedNames = new ArrayList<>();
+
+                // toDisplay should be NA if there are no scores
+                String toDisplay = "NA";
 
                 if(scoreListCurrent.getScores().size() > 0){
                     for(int i = 0; i < scoreListCurrent.getScores().size(); i++){
@@ -149,35 +160,58 @@ public class ScoreListFragment extends Fragment {
                         if(toAdd.equals("")){
                             toAdd = "Undefined opposition";
                         }
+
+                        // prevent adding an opposition twice in the text of the toast
                         if(!addedNames.contains(toAdd)){
                             addedNames.add(toAdd);
                         }
 
                     }
+
+                    // sort it alphabetically
                     Collections.sort(addedNames);
+
                     for(int i = 0; i < addedNames.size(); i++){
                         if(i == 0){
+                            // first item/string added to the list would replace the 'NA' with the first opposition
                             toDisplay = addedNames.get(i);
                         }
                         else{
+                            // add a comma then add the next opposition
                             toDisplay += ", " + addedNames.get(i);
                         }
                     }
                 }
+
+                // make and show toast of all oppositions
                 Toast toastForOpposition = Toast.makeText(getContext(), toDisplay, Toast.LENGTH_LONG);
                 toastForOpposition.setGravity(Gravity.BOTTOM, 0,0);
                 toastForOpposition.show();
+
                 return true;
             case R.id.show_average_by_opposition:
                 ScoreList scoreListForListingAverage = ScoreList.get(getActivity());
-                String toShow = "NA - Add A Score!";
                 List<String> oppositionsAlreadyListed = new ArrayList<>();
+
+                // If there are no scores then the text should be to tell the user to add a score
+                String toShow = "NA - Add A Score!";
+
                 if(scoreListForListingAverage.getScores().size() > 0){
-                    ArrayList<String> toAdd = new ArrayList<>();
+
+                    // set toShow to an empty string that will be added to now that we know there are scores in the list
                     toShow = "";
+
+                    ArrayList<String> toAdd = new ArrayList<>();
+
                     for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
                         String current = scoreListForListingAverage.getScores().get(j).getOpposition();
+
                         if(!oppositionsAlreadyListed.contains(current)){
+                            /*
+                             if we have not already computed the average for this opposition,
+                             go through the list and compute the average for this opposition
+                             and make sure we don't do this opposition again
+                            */
                             oppositionsAlreadyListed.add(current);
                             ScoreList scoreOfThisOpposition = new ScoreList(getContext());
                             for(int k = 0; k < scoreListForListingAverage.getScores().size(); k++){
@@ -185,9 +219,13 @@ public class ScoreListFragment extends Fragment {
                                     scoreOfThisOpposition.addScore(scoreListForListingAverage.getScores().get(k));
                                 }
                             }
+
+                            // if user does not set the opposition name to anything, show it in the list as 'undefined opposition'
                             if(current.equals("")){
                                 current = "Undefined Opposition";
                             }
+
+                            // average is not computable if there are no outs
                             if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
                                 toAdd.add(current + ": No Outs Against This Opposition, ");
                             }
@@ -196,20 +234,31 @@ public class ScoreListFragment extends Fragment {
                             }
                         }
                     }
+
+                    // sort alphabetically, then add to the toShow String
                     Collections.sort(toAdd);
                     for(int i = 0; i < toAdd.size(); i++){
                         toShow += toAdd.get(i);
                     }
+
+                    // as we added a ", " after each item, delete the ", " from the
+                    // end of the String (which shows the last average computed)
                     toShow = toShow.substring(0, toShow.length() - 2);
                 }
+
+                // create and show toast of average by opposition, sorted alphabetically by opposition
                 Toast test = Toast.makeText(getContext(), toShow, Toast.LENGTH_LONG);
                 test.setGravity(Gravity.BOTTOM, 0,0);
                 test.show();
+
                 return true;
             case R.id.show_strike_rate_by_opposition:
+                // similar to the show average by opposition, but instead of showing the
+                // average, we display the strike rate
                 ScoreList scoreListForListingStrikeRateOpposition = ScoreList.get(getActivity());
                 String toDisplayStrikeRate = "NA - Add A Score!";
                 List<String> oppositionsAlreadyAdded = new ArrayList<>();
+
                 if(scoreListForListingStrikeRateOpposition.getScores().size() > 0){
                     ArrayList<String> toAdd = new ArrayList<>();
                     toDisplayStrikeRate = "";
@@ -240,17 +289,24 @@ public class ScoreListFragment extends Fragment {
                     }
                     toDisplayStrikeRate = toDisplayStrikeRate.substring(0, toDisplayStrikeRate.length() - 2);
                 }
+
+                // create and show toast of strike rate by opposition, sorted alphabetically by opposition
                 Toast showingSRByOpp = Toast.makeText(getContext(), toDisplayStrikeRate, Toast.LENGTH_LONG);
                 showingSRByOpp.setGravity(Gravity.BOTTOM, 0,0);
                 showingSRByOpp.show();
+
                 return true;
             case R.id.clear_list:
+                // first clear the list of scores that we have
                 ScoreList.get(getActivity()).clearList();
+
+                // update the fragment so that the display now shows the updated list (of no scores)
                 Fragment fragmentOfScoreList = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 FragmentTransaction betweenFragmentTransaction = getFragmentManager().beginTransaction();
                 betweenFragmentTransaction.detach(fragmentOfScoreList);
                 betweenFragmentTransaction.attach(fragmentOfScoreList);
                 betweenFragmentTransaction.commit();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -262,6 +318,8 @@ public class ScoreListFragment extends Fragment {
         int scoreCount = scoreList.getScores().size();
         String subtitle = getString(R.string.subtitle_format, scoreCount);
 
+        // if we aren't supposed to show the amount of scores, set subtitle
+        // to null so it doesn't display the amount of shows
         if (!mSubtitleVisible) {
             subtitle = null;
         }
@@ -292,10 +350,14 @@ public class ScoreListFragment extends Fragment {
             else{
                 outOrNot = " not out";
             }
+
+            // show the score in the format, for example of 43 runs off 64 balls while being out
+            // as "43 out off 64 balls", and also show the opposition below that score
             mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot + " off " + valueOf(mScore.getBallsFaced()) + " balls");
             mOppositionTextView.setText("Opposition: " + mScore.getOpposition());
         }
 
+        // if a score is clicked, open an activity of that score
         @Override
         public void onClick(View view){
             Intent intent = ScoreActivity.newIntent(getActivity(), mScore.getId());
@@ -305,6 +367,7 @@ public class ScoreListFragment extends Fragment {
 
     private class ScoreAdapter extends RecyclerView.Adapter<ScoreHolder> {
         private List<Score> mScores;
+
         public ScoreAdapter(List<Score> scores) {
             mScores = scores;
         }
@@ -314,11 +377,13 @@ public class ScoreListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             return new ScoreHolder(layoutInflater, parent);
         }
+
         @Override
         public void onBindViewHolder(ScoreHolder holder, int position) {
             Score score = mScores.get(position);
             holder.bind(score);
         }
+
         @Override
         public int getItemCount() {
             return mScores.size();

@@ -17,4 +17,10 @@
     <string name="clear_list">Clear List</string>
     <string name="confirm_score">Confirm Score</string>
     <string name="delete_score">Delete Score</string>
+    <string name="balls_faced">Balls Faced</string>
+    <string name="enter_balls_faced">Enter balls faced</string>
+    <string name="opposition">Opposition</string>
+    <string name="show_total_strike_rate">Show Total Strike Rate</string>
+    <string name="show_strike_rate">Show Strike Rate</string>
+    <string name="show_strike_rate_by_opposition">Show Strike Rate by Opposition</string>
 </resources>

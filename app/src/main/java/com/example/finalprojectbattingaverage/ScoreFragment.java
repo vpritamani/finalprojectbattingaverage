@@ -37,9 +37,9 @@ public class ScoreFragment extends Fragment {
     private EditText mScoreField;
     private EditText mBallsFacedField;
     private EditText mOppositionField;
-    private Button mAddScoreButton;
+    private Button mConfirmScoreButton;
     private Button mDeleteScoreButton;
-    private CheckBox mSolvedCheckBox;
+    private CheckBox mOutOrNotCheckBox;
 
     private Score mScore;
     private UUID mUUID;
@@ -69,6 +69,8 @@ public class ScoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_score, container, false);
+
+        // Sets runs to whatever is in the scorefield as input by user
         mScoreField = (EditText) v.findViewById(R.id.score_value);
         mScoreField.setText(valueOf(mScore.getRuns()));
         mScoreField.addTextChangedListener(new TextWatcher() {
@@ -92,6 +94,7 @@ public class ScoreFragment extends Fragment {
             }
         });
 
+        // Sets balls faced to whatever is in the ballsfacedfield as input by user
         mBallsFacedField = (EditText) v.findViewById(R.id.balls_faced_value);
         mBallsFacedField.setText(valueOf(mScore.getBallsFaced()));
         mBallsFacedField.addTextChangedListener(new TextWatcher() {
@@ -115,6 +118,7 @@ public class ScoreFragment extends Fragment {
             }
         });
 
+        // Sets opposition to what is in the oppositionfield as input by user
         mOppositionField = (EditText) v.findViewById(R.id.opposition_name);
         mOppositionField.setText(mScore.getOpposition());
         mOppositionField.addTextChangedListener(new TextWatcher() {
@@ -134,14 +138,16 @@ public class ScoreFragment extends Fragment {
             }
         });
 
-        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.out_or_not_value);
-        mSolvedCheckBox.setChecked(mScore.getIfOut());
-        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        // Sets boolean of out to true or false depending on if the check box is checked
+        mOutOrNotCheckBox = (CheckBox) v.findViewById(R.id.out_or_not_value);
+        mOutOrNotCheckBox.setChecked(mScore.getIfOut());
+        mOutOrNotCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mScore.setOut(isChecked);
             }
         });
+
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
@@ -149,8 +155,9 @@ public class ScoreFragment extends Fragment {
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
 
-        mAddScoreButton = (Button) v.findViewById(R.id.AddScoreButton);
-        mAddScoreButton.setOnClickListener(new View.OnClickListener(){
+        // adds the score to the list and returns to the home/list activity
+        mConfirmScoreButton = (Button) v.findViewById(R.id.ConfirmScoreButton);
+        mConfirmScoreButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent myIntent = new Intent(getContext(), ScoreListActivity.class);
@@ -158,6 +165,7 @@ public class ScoreFragment extends Fragment {
             }
         });
 
+        // deletes the score from the list and returns to the home/list activity
         mDeleteScoreButton = (Button) v.findViewById(R.id.DeleteScoreButton);
         mDeleteScoreButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -168,15 +176,22 @@ public class ScoreFragment extends Fragment {
                 startActivityForResult(returnIntent, 0);
             }
         });
+
         return v;
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+
+        /*
+         deletes the arrow button from the top left of the menu so that the user
+         just has to click the 'confirm score' button which is much more intuitive
+        */
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setHomeButtonEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         activity.getSupportActionBar().setDisplayShowHomeEnabled(false);
+
         inflater.inflate(R.menu.fragment_score, menu);
     }
 
@@ -186,28 +201,45 @@ public class ScoreFragment extends Fragment {
             case R.id.show_average_in_editing_a_score:
                 ScoreList scoreList = ScoreList.get(getActivity());
                 String averageToShow;
+
+                /*
+                 if there are no outs finding an average would compute to an error
+                 (as you would divide by 0), therefore display a different text
+                 if an average is being computed with no outs, otherwise show the
+                 average in proper decimal format with only two decimal points so
+                 that the toast is not filled with decimal points
+                */
                 if(scoreList.findTotalOuts(scoreList) == 0){
                     averageToShow = "NA - No Scores Are Out!";
                 }
                 else {
                     averageToShow = new DecimalFormat("#.##").format(scoreList.findAverage(scoreList));
                 }
+
+                // create the toast and display it at the bottom of the screen
                 Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
+
                 return true;
             case R.id.show_strike_rate_in_editing_score:
+                // show strike rate of the entire list (not of the individual score)
                 ScoreList scoreListStrikeRate = ScoreList.get(getActivity());
                 String strikeRateToShow;
+
+                // similar to showaverage with outs, a strike rate is not computable with no balls
+                // faced, therefore display a different text if a ball has not been faced yet
                 if(scoreListStrikeRate.findTotalBallsFaced(scoreListStrikeRate) == 0){
                     strikeRateToShow = "NA - You haven't faced a ball yet!";
                 }
                 else{
                     strikeRateToShow = new DecimalFormat("###.##").format(scoreListStrikeRate.findStrikeRate(scoreListStrikeRate));
                 }
+
                 Toast strikeRateToast = Toast.makeText(getContext(), strikeRateToShow, Toast.LENGTH_LONG);
                 strikeRateToast.setGravity(Gravity.BOTTOM, 0, 0);
                 strikeRateToast.show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

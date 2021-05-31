@@ -11,16 +11,14 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class ScorePagerActivity extends
-        AppCompatActivity {
+public class ScorePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_SCORE_ID = "com.example.android.finalprojectbattingaverage.score_id";
-
 
     private ViewPager mViewPager;
     private List<Score> mScores;
 
-    UUID scoreId = (UUID) getIntent().getSerializableExtra(EXTRA_SCORE_ID);
+    private UUID scoreId = (UUID) getIntent().getSerializableExtra(EXTRA_SCORE_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
