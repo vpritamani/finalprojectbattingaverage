@@ -35,6 +35,7 @@ public class ScoreFragment extends Fragment {
 
     // all the buttons/edit texts/check boxes in the fragment
     private EditText mScoreField;
+    private EditText mBallsFacedField;
     private EditText mOppositionField;
     private Button mAddScoreButton;
     private Button mDeleteScoreButton;
@@ -82,6 +83,29 @@ public class ScoreFragment extends Fragment {
                 }
                 else {
                     mScore.setRuns(Integer.valueOf(s.toString()));
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        mBallsFacedField = (EditText) v.findViewById(R.id.balls_faced_value);
+        mBallsFacedField.setText(valueOf(mScore.getBallsFaced()));
+        mBallsFacedField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().length() == 0){
+                    mScore.setBallsFaced(0);
+                }
+                else {
+                    mScore.setBallsFaced(Integer.valueOf(s.toString()));
                 }
             }
             @Override
@@ -171,6 +195,19 @@ public class ScoreFragment extends Fragment {
                 Toast toast = Toast.makeText(getContext(), averageToShow, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
+                return true;
+            case R.id.show_strike_rate_in_editing_score:
+                ScoreList scoreListStrikeRate = ScoreList.get(getActivity());
+                String strikeRateToShow;
+                if(scoreListStrikeRate.findTotalBallsFaced(scoreListStrikeRate) == 0){
+                    strikeRateToShow = "NA - You haven't faced a ball yet!";
+                }
+                else{
+                    strikeRateToShow = new DecimalFormat("###.##").format(scoreListStrikeRate.findStrikeRate(scoreListStrikeRate));
+                }
+                Toast strikeRateToast = Toast.makeText(getContext(), strikeRateToShow, Toast.LENGTH_LONG);
+                strikeRateToast.setGravity(Gravity.BOTTOM, 0, 0);
+                strikeRateToast.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

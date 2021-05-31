@@ -5,4 +5,9 @@
         android:id="@+id/show_average_in_editing_a_score"
         android:title="@string/show_average"
         app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/show_strike_rate_in_editing_score"
+        android:title="Show Total Strike Rate"
+        app:showAsAction="ifRoom|withText"/>
 </menu>

@@ -26,7 +26,7 @@ public class ScorePagerActivity extends
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_pager);
-        mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);
+        mViewPager = (ViewPager) findViewById(R.id.score_view_pager);
         mScores = ScoreList.get(this).getScores();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {

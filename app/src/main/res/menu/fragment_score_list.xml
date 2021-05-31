@@ -13,6 +13,11 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/show_strike_rate"
+        android:title="Show Strike Rate"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/show_subtitle"
         android:title="@string/show_subtitle"
         app:showAsAction="ifRoom"/>
@@ -25,6 +30,11 @@
     <item
         android:id="@+id/show_average_by_opposition"
         android:title="@string/show_average_by_opposition"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/show_strike_rate_by_opposition"
+        android:title="Show Strike Rate by Opposition"
         app:showAsAction="ifRoom"/>
 
     <item

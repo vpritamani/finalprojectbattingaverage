@@ -13,6 +13,7 @@ public class Score {
     private int mRuns;
     private boolean mOut;
     private String mOpposition;
+    private int mBallsFaced;
 
     /*
      Constructor - set an ID, and set default values that
@@ -25,6 +26,7 @@ public class Score {
         mRuns = 0;
         mOut = false;
         mOpposition = "";
+        mBallsFaced = 0;
     }
 
     // get methods
@@ -40,6 +42,9 @@ public class Score {
     public String getOpposition(){
         return mOpposition;
     }
+    public int getBallsFaced(){
+        return mBallsFaced;
+    }
 
     // set methods
     public void setRuns(int runs) {
@@ -50,5 +55,8 @@ public class Score {
     }
     public void setOut(boolean out) {
         mOut = out;
-    }   
+    }
+    public void setBallsFaced(int ballsFaced){
+        mBallsFaced = ballsFaced;
+    }
 }

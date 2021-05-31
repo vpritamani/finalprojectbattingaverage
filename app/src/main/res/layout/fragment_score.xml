@@ -15,6 +15,23 @@
         android:inputType="number"
         android:autofillHints="0"
         android:hint="@string/score_title_hint"/>
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Balls Faced"/>
+    <EditText
+        android:id="@+id/balls_faced_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:autofillHints="0"
+        android:hint="Enter balls faced"/>
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Opposition"/>
     <EditText
         android:id="@+id/opposition_name"
         android:layout_width="match_parent"

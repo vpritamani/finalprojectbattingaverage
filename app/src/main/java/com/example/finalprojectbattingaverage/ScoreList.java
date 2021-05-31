@@ -68,8 +68,19 @@ public class ScoreList {
         return totalRuns;
     }
 
+    public int findTotalBallsFaced(ScoreList scoreList){
+        int totalballsFaced = 0;
+        for(int i = 0; i < scoreList.getScores().size(); i++){
+            totalballsFaced += scoreList.getScores().get(i).getBallsFaced();
+        }
+        return totalballsFaced;
+    }
+
     public double findAverage(ScoreList scoreList){
         return (double) findTotalRuns(scoreList) / (double) findTotalOuts(scoreList);
     }
 
+    public double findStrikeRate(ScoreList scoreList){
+        return 100.0 * (double) findTotalRuns(scoreList) / (double) findTotalBallsFaced(scoreList);
+    }
 }

@@ -115,6 +115,20 @@ public class ScoreListFragment extends Fragment {
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
                 return true;
+            case R.id.show_strike_rate:
+                ScoreList scoreListStrikeRate = ScoreList.get(getActivity());
+                String strikeRateToShow;
+                if(scoreListStrikeRate.findTotalOuts(scoreListStrikeRate) == 0){
+                    strikeRateToShow = "NA - You haven't faced a ball yet!";
+                }
+                else {
+                    double average = scoreListStrikeRate.findStrikeRate(scoreListStrikeRate);
+                    strikeRateToShow = new DecimalFormat("###.##").format(average);
+                }
+                Toast toastForStrikeRate = Toast.makeText(getContext(), strikeRateToShow, Toast.LENGTH_LONG);
+                toastForStrikeRate.setGravity(Gravity.BOTTOM, 0, 0);
+                toastForStrikeRate.show();
+                return true;
             case R.id.show_oppositions:
                 ScoreList scoreListCurrent = ScoreList.get(getActivity());
                 String toDisplay = "NA";
@@ -184,6 +198,9 @@ public class ScoreListFragment extends Fragment {
                 test.setGravity(Gravity.BOTTOM, 0,0);
                 test.show();
                 return true;
+            case R.id.show_strike_rate_by_opposition:
+                // add this
+                return true;
             case R.id.clear_list:
                 ScoreList.get(getActivity()).clearList();
                 Fragment fragmentOfScoreList = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -232,7 +249,7 @@ public class ScoreListFragment extends Fragment {
             else{
                 outOrNot = " not out";
             }
-            mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot);
+            mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot + " off" + valueOf(mScore.getBallsFaced()) + " balls");
             mOppositionTextView.setText("Opposition: " + mScore.getOpposition());
         }
 
@@ -256,8 +273,8 @@ public class ScoreListFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(ScoreHolder holder, int position) {
-            Score crime = mScores.get(position);
-            holder.bind(crime);
+            Score score = mScores.get(position);
+            holder.bind(score);
         }
         @Override
         public int getItemCount() {
