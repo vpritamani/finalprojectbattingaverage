@@ -118,12 +118,21 @@ public class ScoreListFragment extends Fragment {
             case R.id.show_strike_rate:
                 ScoreList scoreListStrikeRate = ScoreList.get(getActivity());
                 String strikeRateToShow;
-                if(scoreListStrikeRate.findTotalOuts(scoreListStrikeRate) == 0){
+                if(scoreListStrikeRate.findTotalBallsFaced(scoreListStrikeRate) == 0){
                     strikeRateToShow = "NA - You haven't faced a ball yet!";
                 }
                 else {
-                    double average = scoreListStrikeRate.findStrikeRate(scoreListStrikeRate);
-                    strikeRateToShow = new DecimalFormat("###.##").format(average);
+                    double strikeRate = scoreListStrikeRate.findStrikeRate(scoreListStrikeRate);
+                    strikeRateToShow = new DecimalFormat("###.##").format(strikeRate);
+                    if(strikeRate <= 75.0){
+                        strikeRateToShow += " - You're batting as if you're playing tests!";
+                    }
+                    else if(strikeRate <= 125.0){
+                        strikeRateToShow += " - It seems like you're playing ODI!";
+                    }
+                    else{
+                        strikeRateToShow += " - It seems like you're playing t20!";
+                    }
                 }
                 Toast toastForStrikeRate = Toast.makeText(getContext(), strikeRateToShow, Toast.LENGTH_LONG);
                 toastForStrikeRate.setGravity(Gravity.BOTTOM, 0, 0);
@@ -193,13 +202,47 @@ public class ScoreListFragment extends Fragment {
                     }
                     toShow = toShow.substring(0, toShow.length() - 2);
                 }
-
                 Toast test = Toast.makeText(getContext(), toShow, Toast.LENGTH_LONG);
                 test.setGravity(Gravity.BOTTOM, 0,0);
                 test.show();
                 return true;
             case R.id.show_strike_rate_by_opposition:
-                // add this
+                ScoreList scoreListForListingStrikeRateOpposition = ScoreList.get(getActivity());
+                String toDisplayStrikeRate = "NA - Add A Score!";
+                List<String> oppositionsAlreadyAdded = new ArrayList<>();
+                if(scoreListForListingStrikeRateOpposition.getScores().size() > 0){
+                    ArrayList<String> toAdd = new ArrayList<>();
+                    toDisplayStrikeRate = "";
+                    for(int j = 0; j < scoreListForListingStrikeRateOpposition.getScores().size(); j++){
+                        String current = scoreListForListingStrikeRateOpposition.getScores().get(j).getOpposition();
+                        if(!oppositionsAlreadyAdded.contains(current)){
+                            oppositionsAlreadyAdded.add(current);
+                            ScoreList scoreOfThisOpposition = new ScoreList(getContext());
+                            for(int k = 0; k < scoreListForListingStrikeRateOpposition.getScores().size(); k++){
+                                if(scoreListForListingStrikeRateOpposition.getScores().get(k).getOpposition().toLowerCase().equals(current.toLowerCase())){
+                                    scoreOfThisOpposition.addScore(scoreListForListingStrikeRateOpposition.getScores().get(k));
+                                }
+                            }
+                            if(current.equals("")){
+                                current = "Undefined Opposition";
+                            }
+                            if(scoreOfThisOpposition.findTotalBallsFaced(scoreOfThisOpposition) == 0){
+                                toAdd.add(current + ": No Balls Faced Against This Opposition, ");
+                            }
+                            else {
+                                toAdd.add(current + ": " + new DecimalFormat("###.##").format(scoreOfThisOpposition.findStrikeRate(scoreOfThisOpposition)) + ", ");
+                            }
+                        }
+                    }
+                    Collections.sort(toAdd);
+                    for(int i = 0; i < toAdd.size(); i++){
+                        toDisplayStrikeRate += toAdd.get(i);
+                    }
+                    toDisplayStrikeRate = toDisplayStrikeRate.substring(0, toDisplayStrikeRate.length() - 2);
+                }
+                Toast showingSRByOpp = Toast.makeText(getContext(), toDisplayStrikeRate, Toast.LENGTH_LONG);
+                showingSRByOpp.setGravity(Gravity.BOTTOM, 0,0);
+                showingSRByOpp.show();
                 return true;
             case R.id.clear_list:
                 ScoreList.get(getActivity()).clearList();
@@ -249,7 +292,7 @@ public class ScoreListFragment extends Fragment {
             else{
                 outOrNot = " not out";
             }
-            mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot + " off" + valueOf(mScore.getBallsFaced()) + " balls");
+            mScoreTextView.setText(valueOf(mScore.getRuns()) + outOrNot + " off " + valueOf(mScore.getBallsFaced()) + " balls");
             mOppositionTextView.setText("Opposition: " + mScore.getOpposition());
         }
 
