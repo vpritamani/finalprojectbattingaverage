@@ -150,6 +150,7 @@ public class ScoreListFragment extends Fragment {
                 String toShow = "NA - Add A Score!";
                 List<String> oppositionsAlreadyListed = new ArrayList<>();
                 if(scoreListForListingAverage.getScores().size() > 0){
+                    ArrayList<String> toAdd = new ArrayList<>();
                     toShow = "";
                     for(int j = 0; j < scoreListForListingAverage.getScores().size(); j++){
                         String current = scoreListForListingAverage.getScores().get(j).getOpposition();
@@ -165,12 +166,16 @@ public class ScoreListFragment extends Fragment {
                                 current = "Undefined Opposition";
                             }
                             if(scoreOfThisOpposition.findTotalOuts(scoreOfThisOpposition) == 0){
-                                toShow += current + ": No Outs Against This Opposition, ";
+                                toAdd.add(current + ": No Outs Against This Opposition, ");
                             }
                             else {
-                                toShow += current + ": " + new DecimalFormat("#.##").format(scoreOfThisOpposition.findAverage(scoreOfThisOpposition)) + ", ";
+                                toAdd.add(current + ": " + new DecimalFormat("#.##").format(scoreOfThisOpposition.findAverage(scoreOfThisOpposition)) + ", ");
                             }
                         }
+                    }
+                    Collections.sort(toAdd);
+                    for(int i = 0; i < toAdd.size(); i++){
+                        toShow += toAdd.get(i);
                     }
                     toShow = toShow.substring(0, toShow.length() - 2);
                 }
